@@ -25,13 +25,24 @@ object Runner {
     val pw = new PrintWriter(outputFile)
     val sources = fileList.map(Source.fromFile(_).getLines)
 
+    var recordsRow = sources.map(safeNext)
+
     while(sources.exists(_.hasNext)){
+
 
     }
 
 
 
     pw.close
+  }
+
+  def safeNext(iterator: Iterator) : Option[TimeSeriesRecord] = {
+    if(iterator.hasNext){
+      Some(TimeSeriesRecord(iterator.next()))
+    } else {
+      None
+    }
   }
 
 }
